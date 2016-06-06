@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title>Simple LTI Assessment Tool</title>
+	<script type="text/javascript">			
+		// LTI params set by LTI provider
+		ltiSupport = false;
+		ltiParams = '{{ lti_params|safe }}';
+		try{
+			console.log(ltiParams);
+			ltiParams = JSON.parse(ltiParams);
+			ltiSupport = true;
+		}catch(e){
+			console.info(e);
+		}
+
+		// onLoad listener
+		function load() {			
+			if(!ltiSupport) {
+				console.log("Warning: no LTI params!");
+			} else {
+				var username = document.getElementById("username");
+				username.innerHTML = ltiParams['lis_person_name_full']
+			}
+		}
+
+	</script>
+</head>
+<body>
+	<h1>Simple LTI Assessment Tool</h1>
+	<form action="/assessment" method="post">
+		<p>Hi, <em id="username"></em>. On a scale of <code>0.0</code> to <code>1.0</code>, how well would you say you did on this assessment?</p>
+		<input name='score' type='text' width='5' id='score' />
+		<input type='submit' value='Submit' />
+	</form>
+</body>
+</html>
+

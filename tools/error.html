@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <p style="color: #ff3d23;">Message: {{ message }}</p>
+
+        {% if return_url %}
+        <a href="{{ return_url }}">Click here to return to .</a>
+        {% endif %}
+
+		{% if params %}
+			<h3>Parameters</h3>
+			<table>
+				{% for key in params %}
+				<tr>
+					<td>{{ key }}</td>
+					<td>{{ params[key] }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+        {% endif %}
+
+    </body>
+</html>

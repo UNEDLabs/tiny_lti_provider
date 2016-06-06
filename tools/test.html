@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Test LTI Tool</title>
+	
+    <script type="text/javascript">
+	
+		// LTI params set by LTI provider
+		ltiSupport = false;
+		ltiParams = '{{ lti_params|safe }}';
+		try{
+			console.log(ltiParams);
+			ltiParams = JSON.parse(ltiParams);
+			ltiSupport = true;
+		}catch(e){
+			console.info(e);
+		}
+
+		// onLoad listener
+		function load() {			
+			if(!ltiSupport) {
+				console.log("Warning: no LTI params!");
+			} else {
+				// Show LTI params	
+				var list = document.getElementById("myLTISelect");
+				for(var key in ltiParams) {
+					var option = document.createElement("option");
+					option.text = key + ": " + ltiParams[key];
+					list.add(option);
+				}				
+			}
+		}
+
+
+    </script>
+</head>
+<body onload="load()">
+
+  <h2>List of LTI Properties</h2>
+  <select id="myLTISelect" size="20">
+  </select>
+  
+  {% if launch_presentation_return_url %}
+  <br><a href="{{ launch_presentation_return_url }}">Click here to return.</a>
+  {% endif %}
+  
+</body>
+</html>
